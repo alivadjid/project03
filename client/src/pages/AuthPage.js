@@ -25,6 +25,16 @@ export const AuthPage = () => {
     }
   }
 
+  const loginHandler = async () => {
+    try{
+      const data = await request('/api/auth/login', 'POST', {...form})
+      //console.log('Data', data)
+      message(data.message)
+    } catch(e){
+      //пустой. Т.к. ошибку ловим в useHttp
+    }
+  }
+
   const message = useMessage()
   // обработка ошибок
   useEffect( ()=> {
@@ -70,6 +80,7 @@ export const AuthPage = () => {
               className="btn yellow darken-4"
               style={{marginRight: 10}}
               disabled={loading}
+              onClick={loginHandler}
             >
               Войти
             </button>

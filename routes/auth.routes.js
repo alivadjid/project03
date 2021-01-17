@@ -30,7 +30,7 @@ router.post(
 
     //получаем данные из фронт
     const { email, password } = req.body
-    console.log(req)
+
     //логика непосредственной регистрации
     const candidate = await User.findOne({ email: email})
 
@@ -55,7 +55,7 @@ router.post(
 
 // /api/auth/login
 router.post(
-  '/register',
+  '/login',
   [
     check('email', 'Введите корректный email').normalizeEmail().isEmail(),
     check('password', 'Введите пароль').exists() // exists - пароль просто существует
@@ -64,10 +64,11 @@ router.post(
     try{
       // обработка валидации
       const errors = validationResult(req)
-      if (errors.isEmpty()) {
+      console.log('Error login',errors)
+      if (!errors.isEmpty()) {
         return res.status(400).json({
           errors: errors.array(),
-          message: 'Некорректные данные при входе в систему'
+          message: 'Некорректные данные при входе в систему логин'
         })
       }
       const { email, password } = req.body
