@@ -30,14 +30,15 @@ export const useHttp = () => {
 
       return data
     } catch(e) {
-        setLoading(false)
+      console.log('Catch', e.message)
+      setLoading(false)
       setError(e.message)
       throw e
     }
   }, [])
 
   //чистит ошибки
-  const clearError = () => setError(null)
-
-  return { loading, request, error}
+  //const clearError = () => setError(null)
+  const clearError = useCallback( ()=> setError(null), [])
+  return { loading, request, error, clearError}
 }

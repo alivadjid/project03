@@ -1,5 +1,6 @@
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import {useHttp} from "../hooks/http.hook";
+import {useMessage} from "../hooks/message.hook";
 
 
 export const AuthPage = () => {
@@ -12,17 +13,25 @@ export const AuthPage = () => {
   }
 
   //используем свой хук
-  const {loading, error, request } = useHttp()
+  const {loading, error, request, clearError } = useHttp()
 
   const registerHandler = async () => {
     try{
       const data = await request('/api/auth/register', 'POST', {...form})
-      console.log('Data', data)
+      //console.log('Data', data)
+      message(data.message)
     } catch(e){
       //пустой. Т.к. ошибку ловим в useHttp
     }
   }
 
+  const message = useMessage()
+  // обработка ошибок
+  useEffect( ()=> {
+    console.log('Error', error)
+    message(error)
+    clearError()
+  }, [error, message, clearError])
   return (
     <div className="row">
       <div className="col s6 offset-s3">
