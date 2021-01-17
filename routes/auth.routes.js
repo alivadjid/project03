@@ -18,9 +18,10 @@ router.post(
   ],
   async(req, res)=> {
   try{
+    // console.log('Body:', req.body)
     // обработка валидации
     const errors = validationResult(req)
-    if (errors.isEmpty()) {
+    if (!errors.isEmpty()) {
       return res.status(400).json({
         errors: errors.array(),
         message: 'Некорректные данные при регистрации'
@@ -29,7 +30,7 @@ router.post(
 
     //получаем данные из фронт
     const { email, password } = req.body
-
+    console.log(req)
     //логика непосредственной регистрации
     const candidate = await User.findOne({ email: email})
 
@@ -47,7 +48,8 @@ router.post(
     res.status(201).json({message:'Пользователь создан'})
 
   } catch(e){
-    res.status(500).json({ message: 'Что-то пошло не так, попробуйте снова'})
+    res.status(500).json({ message: 'Что-то пошло не так, попробуйте снова, на сервере'})
+    // console.log(req)
   }
 })
 
@@ -92,6 +94,7 @@ router.post(
 
     } catch(e){
       res.status(500).json({ message: 'Что-то пошло не так, попробуйте снова'})
+
     }
 })
 

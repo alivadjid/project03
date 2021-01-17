@@ -5,7 +5,7 @@ const schema = new Schema({
   password: {type: String, required: true},
   // можно еще добавить имя.
   // сокращение ссылок. То можно хранить эти ссылки для пользоватея
-  links: [{type: Types.ObjectId, ref: 'link'}]
+  links: [{type: Types.ObjectId, ref: 'Link'}]
 })
 
 module.exports = model('User', schema)
