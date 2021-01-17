@@ -1,9 +1,11 @@
-import React, {useEffect, useState} from 'react'
+import React, {useEffect, useState, useContext} from 'react'
 import {useHttp} from "../hooks/http.hook";
 import {useMessage} from "../hooks/message.hook";
+import {AuthContext} from "../context/AuthContext";
 
 
 export const AuthPage = () => {
+  const auth = useContext(AuthContext)
   const [ form, setForm ] = useState({
     email:'', password: ''
   })
@@ -29,7 +31,8 @@ export const AuthPage = () => {
     try{
       const data = await request('/api/auth/login', 'POST', {...form})
       //console.log('Data', data)
-      message(data.message)
+      // message(data.message)
+      auth.login(data.token, data.userId)
     } catch(e){
       //пустой. Т.к. ошибку ловим в useHttp
     }
