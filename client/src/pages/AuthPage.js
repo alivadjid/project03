@@ -45,6 +45,11 @@ export const AuthPage = () => {
     message(error)
     clearError()
   }, [error, message, clearError])
+
+  //после выхода на страницу авторизации. Input-ы не активные
+  useEffect( () => {
+    window.M.updateTextFields()
+  }, [])
   return (
     <div className="row">
       <div className="col s6 offset-s3">
