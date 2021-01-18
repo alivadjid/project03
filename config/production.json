@@ -1,0 +1,6 @@
+{
+  "port": 5000,
+  "mongoUri": "mongodb+srv://user:1234root@cluster0.csinh.mongodb.net/app?retryWrites=true&w=majority",
+  "jwtSecret": "Marat youtube mern",
+  "baseUrl": "http://localhost:5000"
+}
