@@ -2,12 +2,12 @@ const { Router } = require('express')
 const Link = require('../models/Link')
 const router  = Router()
 const auth = require('../middleware/auth.middleware')
-const config = require('../config')
+const config = require('config')
 const shortid = require('shortid')
 
 //обработка нескольких запросов
 
-router.post('/generate', auth,async(req,res) => {
+router.post('/generate', auth, async(req,res) => {
   try{
     const baseUrl = config.get('baseUrl')
 
@@ -21,11 +21,11 @@ router.post('/generate', auth,async(req,res) => {
     const existing = await Link.findOne({from})
 
     if(existing) {
-      res.json({ link: existing})
+      return res.json({ link: existing})
     }
 
-    const to = baseUrl + '/t' + code
-
+    const to = baseUrl + '/t/' + code
+    console.log('to: ', to)
     const link = new Link({
       code, to, from, owner: req.user.userId
     })
